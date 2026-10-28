@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان تقييم العملاء - شركة رائد الشندي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header */
+        header {
+            background-color: #1b365d; /* كحلي رسمي للشركات */
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .company-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: right;
+        }
+
+        .company-brand::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 22px;
+            background-color: #c5a059; /* ذهبي فخم */
+            border-radius: 4px;
+        }
+
+        .header-title {
+            font-size: 0.95rem;
+            color: #d0d7de;
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .survey-card {
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            padding: 35px 30px;
+            border-top: 6px solid #1b365d;
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: #1b365d;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #f8fafc;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
+            border-color: #1b365d;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(27, 54, 93, 0.1);
+        }
+
+        /* Rating Category Box */
+        .rating-category {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 16px 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .rating-category:hover {
+            border-color: #cbd5e1;
+        }
+
+        .rating-category label {
+            margin-bottom: 10px;
+            font-size: 0.98rem;
+            color: #1e293b;
+        }
+
+        .stars {
+            display: flex;
+            gap: 12px;
+            direction: ltr;
+            justify-content: flex-end;
+        }
+
+        .star {
+            font-size: 26px;
+            cursor: pointer;
+            color: #cbd5e1;
+            transition: color 0.2s, transform 0.1s;
+            user-select: none;
+        }
+
+        .star:hover {
+            transform: scale(1.15);
+        }
+
+        .star.active, .star:hover, .star:hover ~ .star {
+            color: #f59e0b; /* لون النجوم الذهبي */
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            background-color: #1b365d;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(27, 54, 93, 0.25);
+        }
+
+        .btn-submit:hover {
+            background-color: #122342;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Thank You Screen */
+        .thank-you-box {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        .success-badge {
+            width: 70px;
+            height: 70px;
+            background-color: #d1fae5;
+            color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 auto 20px auto;
+        }
+
+        .thank-you-box h2 {
+            color: #1b365d;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .thank-you-sub {
+            color: #c5a059;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .thank-you-desc {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #64748b;
+            font-size: 0.85rem;
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .survey-card {
+                padding: 22px 18px;
+            }
+            .star {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- اسم الشركة دائماً أعلى اليمين -->
+        <div class="company-brand">شركة رائد الشندي</div>
+        <div class="header-title">بوابة تقييم خدمة العملاء</div>
+    </header>
+
+    <main>
+        <div class="survey-card" id="surveyCard">
+            <div class="section-header">
+                <h2>استبيان تقييم تجربة العملاء</h2>
+                <p>حرصاً منا على تقديم أفضل مستويات الجودة، يسعدنا قياس مدى رضاكم عن خدماتنا</p>
+            </div>
+
+            <form id="feedbackForm" onsubmit="submitForm(event)">
+                
+                <!-- البيانات الأساسية -->
+                <div class="form-group">
+                    <label for="clientName">اسم العميل (اختياري):</label>
+                    <input type="text" id="clientName" placeholder="أدخل اسمك الكريم">
+                </div>
+
+                <div class="form-group">
+                    <label for="clientPhone">رقم الجوال / البريد الإلكتروني (اختياري):</label>
+                    <input type="text" id="clientPhone" placeholder="للتواصل معك في حال وجود استفسار أو ملاحظة">
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 25px 0;">
+
+                <!-- 1. تقييم النظافة -->
+                <div class="rating-category">
+                    <label>1. مستوى نظافة وتنظيم مقر الشركة والمرافق:</label>
+                    <div class="stars" data-name="cleanliness">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- 2. تقييم تعامل الموظفين -->
+                <div class="rating-category">
+                    <label>2. حسن الاستقبال واحترافية موظفي خدمة العملاء:</label>
+                    <div class="stars" data-name="staff">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- 3. تقييم تعامل الإدارة -->
+                <div class="rating-category">
+                    <label>3. مدى التزام واهتمام إدارة الشركة بمتطلبات العميل:</label>
+                    <div class="stars" data-name="management">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- 4. تقييم جودة الخدمة والسرعة -->
+                <div class="rating-category">
+                    <label>4. جودة الخدمة المقدمة وسرعة إنجاز المعاملات:</label>
+                    <div class="stars" data-name="service">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- 5. تقييم موقع الفرع وسهولة الوصول (إضافة جديدة) -->
+                <div class="rating-category">
+                    <label>5. سهولة الوصول لموقع الشركة وتوفر المواقف:</label>
+                    <div class="stars" data-name="location">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- 6. تقييم التوصية والترشيح (إضافة جديدة) -->
+                <div class="rating-category">
+                    <label>6. مدى ترشيحك لشركة رائد الشندي لزملائك ومعارفك:</label>
+                    <div class="stars" data-name="recommendation">
+                        <span class="star" onclick="setRating(this, 5)">★</span>
+                        <span class="star" onclick="setRating(this, 4)">★</span>
+                        <span class="star" onclick="setRating(this, 3)">★</span>
+                        <span class="star" onclick="setRating(this, 2)">★</span>
+                        <span class="star" onclick="setRating(this, 1)">★</span>
+                    </div>
+                </div>
+
+                <!-- ملاحظات إضافية -->
+                <div class="form-group" style="margin-top: 25px;">
+                    <label for="comments">ملاحظات أو اقتراحات لتطوير الخدمة:</label>
+                    <textarea id="comments" rows="3" placeholder="اكتب اقتراحاتك هنا إن وجدت..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">إرسال التقييم النهائي</button>
+            </form>
+        </div>
+
+        <!-- شاشة رسالة الشكر والختام المخصصة -->
+        <div class="survey-card hidden" id="thankYouCard">
+            <div class="thank-you-box">
+                <div class="success-badge">✓</div>
+                <h2>شكراً جزيلاً لك!</h2>
+                <div class="thank-you-sub">شكراً لتعاملك مع شركة رائد الشندي</div>
+                <p class="thank-you-desc">
+                    تم استلام تقييمك بنجاح وسيكون محط اهتمامنا ودراستنا لتطوير خدماتنا باستمرار.<br>
+                    نسعد بخدمتكم دائماً ونتطلع لاستقبالكم في المرات القادمة.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        جميع الحقوق محفوظة © 2026 - شركة رائد الشندي
+    </footer>
+
+    <script>
+        // دالة التفاعل للنجوم
+        function setRating(starElement, ratingValue) {
+            const container = starElement.parentElement;
+            container.setAttribute('data-value', ratingValue);
+            const stars = container.querySelectorAll('.star');
+            
+            const starsArr = Array.from(stars).reverse();
+            
+            starsArr.forEach((s, index) => {
+                if (index < ratingValue) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        }
+
+        // دالة الإرسال
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // التبديل إلى شاشة الشكر والتقدير
+            document.getElementById('surveyCard').classList.add('hidden');
+            document.getElementById('thankYouCard').classList.remove('hidden');
+            
+            // التمرير لأعلى الشاشة بسلاسة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
